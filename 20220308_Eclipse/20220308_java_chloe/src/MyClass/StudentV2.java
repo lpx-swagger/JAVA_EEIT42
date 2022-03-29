@@ -3,9 +3,9 @@ package MyClass;
 import java.io.Serializable;
 
 public class StudentV2 implements Serializable {
-	private String name;
 	private int ch, math;
 	private transient int eng;
+	private String name;
 	
 	public StudentV2(String name, int ch, int eng, int math) {
 		this.name = name;	
@@ -18,7 +18,7 @@ public class StudentV2 implements Serializable {
 	}
 
 
-	public double Agv() {
+	public double Avg() {
 		return Score() / 3.0;
 	}
 

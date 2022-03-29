@@ -11,7 +11,7 @@ public class chloe76 {
 		myTask mT = new myTask();
 		myStop ms = new myStop(timer);
 		
-		timer.schedule(mT, 0 ,3*1000);   // 3 secs
+		timer.schedule(mT, 0, 3*1000);   // 3 secs
 		timer.schedule(mT, 10*1000);// 無論如何10secs就結束
 		System.out.println("Main");
 

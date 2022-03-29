@@ -1,6 +1,5 @@
 package MyClass;
 
-import java.io.Serializable;
 
 public class Student {
 	private String name;

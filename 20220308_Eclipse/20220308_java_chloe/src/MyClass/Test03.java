@@ -18,6 +18,6 @@ public class Test03 extends Test02{
 	}
 	
 	public Test03(String c) {
-		this(2.0);
+		this(2);
 	}
 }
