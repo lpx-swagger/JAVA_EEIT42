@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="/Volumes/disk0s3/Users/chloe-lu/lesson_learned_disks03/JAVA_course/20220308_Eclipse/20220329_JAVANET/dir1/json-20220320.jar"/>
+	<classpathentry kind="lib" path="/Volumes/disk0s3/Users/chloe-lu/MySQL_Utility/Connector/mysql-connector-java-8.0.28/mysql-connector-java-8.0.28.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
