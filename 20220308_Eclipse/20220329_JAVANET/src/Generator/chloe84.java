@@ -9,17 +9,17 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 // http v.s. https
-// 抓取文字資料 ex. 衛福部口罩cvs 每 5mins 就可以自己刷新看看
+// 爬蟲 Crawling，抓取文字資料 ex. 衛福部口罩cvs 每 5mins 就可以自己刷新看看
 
 public class chloe84 {
 	public static void main(String[] args) {
 		try {
 			URL url = new URL("https://data.coa.gov.tw/Service/OpenData/ODwsv/ODwsvTravelFood.aspx");
-			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+			HttpURLConnection conn = (HttpURLConnection)url.openConnection();  // 在Google 輸入URL之後，按下Enter => openConnection()
 			
 			BufferedReader reader = 
 				new BufferedReader(
-					new InputStreamReader(conn.getInputStream()));
+					new InputStreamReader(conn.getInputStream()));  // openConnection()後 => 取得物件實體URLConnection => URLconnection abstract 就 abstract 方法(getInputStream() => 倒資料進來)能夠滿足我用就好了
 			String line; StringBuffer sb = new StringBuffer();
 			while ( (line = reader.readLine()) != null) {
 				sb.append(line);
