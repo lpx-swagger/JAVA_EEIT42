@@ -4,6 +4,7 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+//chloe801 & chloe802
 // TCP server 等待clinet 傳送資料過來
 
 public class chloe802 {
@@ -14,7 +15,7 @@ public class chloe802 {
 			Socket socket = server.accept();
 			System.out.println("AFTER");
 			server.close();
-			System.out.println("sever OK");
+			System.out.println("SEVER OK");
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}

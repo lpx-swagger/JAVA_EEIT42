@@ -6,7 +6,7 @@ import java.net.Socket;
 
 // chloe81 & chloe82
 // TCP 發送端 (Output)
-// 網頁 http 也是一種 TCP
+// http, SMTP, FTP 也都是一種 TCP, 在TCP的架構上，再去定義得更詳細
 // https 的 s => ssl
 // 自己的電腦有開哪些 port number
 

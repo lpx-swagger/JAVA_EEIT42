@@ -27,7 +27,7 @@ public class twID {
 	public twID(int area, boolean gender) {
 		// 隨機產生
 		StringBuffer sb = new StringBuffer(letters.substring(area, area+1));
-		sb.append(gender?"1":"2");
+		sb.append(gender?"1":"2");   // 三元運算式
 		// middle #7
 		for (int i = 0; i < 7; i++) {
 			int rand = (int)(Math.random()*7);
