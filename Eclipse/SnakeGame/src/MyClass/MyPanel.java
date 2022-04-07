@@ -1,6 +1,5 @@
 package MyClass;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -8,28 +7,21 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
-import javax.swing.AbstractAction;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.KeyStroke;
 import javax.swing.Timer;
 import Generator.myMotion;
 
 
 public class MyPanel extends JPanel implements ActionListener {
     private final int RAND_POS = 11;
-    private final int DELAY = 500;
+    private final int DELAY = 300;
     private final int DOT_SIZE = 70;
     private final int TOTAL_DOTS = 144;  // 840*840 div 70*70 => the maximum number of possible dots on the board
     public final int B_WIDTH = 840;
@@ -43,6 +35,8 @@ public class MyPanel extends JPanel implements ActionListener {
 	private boolean leftDir = false; private boolean rightDir = true;
 	private boolean upDir = false; private boolean downDir = false;
 	private boolean inGame = true;
+
+	private int score;
 	
 	private Image elephant; private Image head; private Image unitBody;
 
@@ -50,15 +44,23 @@ public class MyPanel extends JPanel implements ActionListener {
 	
 	public MyPanel() {
 		setBackground(Color.BLACK);
-		setFocusable(true);
-		requestFocus();
 		setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
-		//newGame();
+		
+		score = 0;
+		
 		timer = new Timer(DELAY, this);
 		timer.start();
 	}
 	
 	public void newGame() {
+		addKeyListener(new KAdapter());
+		setFocusable(true);
+		requestFocus();
+		
+		/* If you're just listening for a few keys and your component doing the listening 
+		 * may not have the focus, you're far better of using key bindings than a KeyListener.*/
+		
+		
 		loadObj();
 		initGame();
 		setInGame();
@@ -66,9 +68,9 @@ public class MyPanel extends JPanel implements ActionListener {
 	
 	private void loadObj() {
 		try {
-			elephant = ImageIO.read(new File("/Volumes/disk0s3/Users/chloe-lu/lesson_learned_disks03/JAVA_course/Eclipse/20220316_DS/dir1/ball2.png"));
-			head = ImageIO.read(new File("/Volumes/disk0s3/Users/chloe-lu/lesson_learned_disks03/JAVA_course/Eclipse/20220316_DS/dir1/ball0.png"));
-			unitBody = ImageIO.read(new File("/Volumes/disk0s3/Users/chloe-lu/lesson_learned_disks03/JAVA_course/Eclipse/20220316_DS/dir1/ball1.png"));
+			elephant = ImageIO.read(new File("dir1/ball2.png"));
+			head = ImageIO.read(new File("dir1/ball0.png"));
+			unitBody = ImageIO.read(new File("dir1/ball1.png"));
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -80,9 +82,7 @@ public class MyPanel extends JPanel implements ActionListener {
 			x[i] = 350 - i * 10;
 			y[i] = 350;
 		}
-		
 		locElephant();
-		
 	}
 	
 	public void setInGame() {
@@ -113,7 +113,7 @@ public class MyPanel extends JPanel implements ActionListener {
 		} else {
 			gameOver(g2d);
 		}
-		//repaint();
+		
 	}
 	
 	
@@ -189,7 +189,7 @@ public class MyPanel extends JPanel implements ActionListener {
 		
 		g2d.setColor(Color.WHITE);
 		g2d.setFont(ft);
-		g2d.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2 ); // TODO int x, y
+		g2d.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2 );
 	}
 
 	
@@ -200,7 +200,7 @@ public class MyPanel extends JPanel implements ActionListener {
 		int ran2 = (int)(Math.random() * RAND_POS);
 		eX = (ran1 * DOT_SIZE);
 		eY = (ran2 * DOT_SIZE);
-		System.out.println("X: " + eX + " " + "Y: " + eY);
+		System.out.println("Elephant location: " + "X: " + eX + " " + "Y: " + eY);
 	}
 	
 	private void checkElephant() {
@@ -286,6 +286,7 @@ public class MyPanel extends JPanel implements ActionListener {
 //       }
    }
 	
+
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -296,6 +297,55 @@ public class MyPanel extends JPanel implements ActionListener {
 		}
 		repaint();
 	}
-	
+
+	private class KAdapter extends KeyAdapter {
+		@Override
+		public void keyTyped(KeyEvent e) {
+
+		}
+
+		@Override
+		public void keyPressed(KeyEvent e) {
+			int key = e.getKeyCode();
+
+			if((key == KeyEvent.VK_LEFT) && (!rightDir)) {
+				leftDir = true;
+				upDir = false;
+				downDir = false;
+				System.out.println("Modifiers: " + e.getModifiersEx());
+				System.out.println("go left");
+
+			}
+
+			if((key == KeyEvent.VK_UP) && (!downDir)) {
+				upDir = true;
+				leftDir = false;
+				rightDir = false;
+				System.out.println("Modifiers: " + e.getModifiersEx());
+				System.out.println("go up");
+			}
+
+			if((key == KeyEvent.VK_DOWN) && (!upDir)) {
+				downDir = true;
+				leftDir = false;
+				rightDir = false;
+				System.out.println("Modifiers: " + e.getModifiersEx());
+				System.out.println("go down");
+			}
+
+			if((key == KeyEvent.VK_RIGHT) && (!leftDir)) {
+				rightDir = true;
+				upDir = false;
+				downDir = false;
+				System.out.println("Modifiers: " + e.getModifiersEx());
+				System.out.println("go right");
+			}
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+
+		}
+	}
 
 }

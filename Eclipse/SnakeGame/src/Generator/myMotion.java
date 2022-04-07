@@ -1,26 +1,16 @@
 package Generator;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.FlowLayout;
-import java.awt.Frame;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 
-import javax.imageio.plugins.bmp.BMPImageWriteParam;
-import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.KeyStroke;
 
 import MyClass.MyPanel;
 import MyClass.myDigitalClock;
-import MyClass.myKeyboardListener;
 
 
 public class myMotion extends JFrame {
@@ -35,14 +25,12 @@ public class myMotion extends JFrame {
 		super("My Greedy Snake Game");
 		newGame = new JButton("New Game");
 		
-		myKeyboardListener mkl = new myKeyboardListener();
-		this.addKeyListener(mkl);
-		
 		mp = new MyPanel();
 		mdc = new myDigitalClock();
 		
 		layoutView();
 		setEvent();
+		
 	}
 
 	public void layoutView() {
