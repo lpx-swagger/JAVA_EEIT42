@@ -24,7 +24,7 @@ import myClass.myDigitalClock;
 
 public class MyPainter extends JFrame {
 	
-	// Field 屬性
+	// Field
 	private JButton clear, redo, undo, saveImg, saveObj, loadObj, color;
 	private MyDrawer md;
 	private myDigitalClock mdc;

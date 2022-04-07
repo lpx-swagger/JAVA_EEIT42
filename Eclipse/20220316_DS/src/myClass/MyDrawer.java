@@ -70,18 +70,18 @@ public class MyDrawer extends JPanel{  // MyDrawer 的物件實體 is-a JPanel
 		
 		
 		// 畫所有在lines中的每一個 	line
-				for(LinkedList<HashMap<String, Integer>> ll : lines) { // => 若有#5點，可以畫4條線
-					
-					// 每一條線的第一點都帶有顏色資訊，畫第一條之前先設定顏色
-					g2d.setColor( new Color(ll.get(0).get("color")	) );
-					
-					// 畫一條line
-					for(int i = 1; i < ll.size(); i++) { // 0->1 => 算1; 1->2 => 算2; 2->3 => 算3; 3->4 => 算4，前一點到當前點，所以從 1 開始巡防
-						HashMap<String, Integer> p1 = ll.get(i-1); // 2點1線
-						HashMap<String, Integer> p2 = ll.get(i);
-						g2d.drawLine(p1.get("x"), p1.get("y"), p2.get("x"), p2.get("y"));
-					}
-				}
+		for(LinkedList<HashMap<String, Integer>> ll : lines) { // => 若有#5點，可以畫4條線
+
+			// 每一條線的第一點都帶有顏色資訊，畫第一條之前先設定顏色
+			g2d.setColor( new Color(ll.get(0).get("color")	) );
+
+			// 畫一條line
+			for(int i = 1; i < ll.size(); i++) { // 0->1 => 算1; 1->2 => 算2; 2->3 => 算3; 3->4 => 算4，前一點到當前點，所以從 1 開始巡防
+				HashMap<String, Integer> p1 = ll.get(i-1); // 2點1線
+				HashMap<String, Integer> p2 = ll.get(i);
+				g2d.drawLine(p1.get("x"), p1.get("y"), p2.get("x"), p2.get("y"));
+			}
+		}
 	}
 	
 	
@@ -101,7 +101,6 @@ public class MyDrawer extends JPanel{  // MyDrawer 的物件實體 is-a JPanel
 			// 抓了一點也同時創立一條新線 => 新線新點
 			LinkedList<HashMap<String, Integer>> line = new LinkedList<>();
 			line.add(point);
-			
 			
 			lines.add(line);
 			//repaint(); => 一個點沒什麼好畫的，可以省略 => 幾何裡面的一點是看不到的
