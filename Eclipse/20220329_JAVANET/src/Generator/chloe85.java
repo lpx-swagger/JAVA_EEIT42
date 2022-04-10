@@ -5,7 +5,8 @@ import java.io.FileOutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-
+// 把網頁另存成pdf
+//w3c.org
 
 public class chloe85 {
 	public static void main(String[] args) {
@@ -14,6 +15,7 @@ public class chloe85 {
 			URL url = new URL("https://pdfmyurl.com/?url=" + target);
 			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 			
+			// 另存新檔
 			FileOutputStream fout = new FileOutputStream("dir1/chloe.pdf");
 			
 			BufferedInputStream bin = 

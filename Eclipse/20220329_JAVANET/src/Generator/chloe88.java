@@ -12,19 +12,22 @@ import java.util.Properties;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+// 增！
+//stmt.executeUpdate() => int
+//parseJSON 的方式來寫
 
 public class chloe88 {
 	public static PreparedStatement pstmt;
 	public static void main(String[] args) {
-		// 1. 抓JSON 回來
+		Properties prop = new Properties();
+		prop.put("user", "root");
+		prop.put("password", "root");
+		
 		try {
-			Properties prop = new Properties();
-			prop.put("user", "root");
-			prop.put("password", "root");
 			Connection conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost/iii", prop);
+					"jdbc:mysql://localhost:3307/iii", prop);
 			
-			// 3. SQL statement
+			// 3. SQL statement => 使用 PreparedStatement 和 ? 預存的方式來防止隱碼攻擊(SQL Injection)
 			pstmt = conn.prepareStatement(
 					"INSERT INTO foods (name,addr,tel) " +
 					"VALUES (?,?,?)");
@@ -32,7 +35,7 @@ public class chloe88 {
 			System.out.println(e.toString());
 		}
 		
-		// 1. 抓 json 回來
+		// 1. 抓 JSON 回來
 		fetchJSON();
 		// 2. parse json
 		// 3. insert into
@@ -70,6 +73,7 @@ public class chloe88 {
 				String addr = row.getString("Address");
 				String tel = row.getString("Tel");
 				
+				// 撈到一筆，就入一筆到資料庫
 				insertData(name, addr, tel);
 				
 			}

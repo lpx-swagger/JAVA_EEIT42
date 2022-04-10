@@ -12,21 +12,20 @@ import java.util.Properties;
 public class chloe94 {
 	public static void main(String[] args) {
 		Properties prop = new Properties();
-		prop.put("user", "root"); prop.put("password", "root");
+		prop.put("user", "root"); 
+		prop.put("password", "root");
 		String sql = "UPDATE member SET icon = ? WHERE id = ?";
 		
-		
-		
 		try(Connection conn = DriverManager.getConnection(
-//					"jdbc:mysql://127.0.0.1", prop)){  // 127.0.0.1 本站迴路 ip, 也可用localhost(似別名，也可以叫brad) => 釣魚程式，把別名換掉
-					"jdbc:mysql://localhost:3306/iii", prop)){
+//					"jdbc:mysql://127.0.0.1", prop)){  // 127.0.0.1 本機迴路位置 ip (DNS 觀念，你去問他，他回報給你ip,你再用ip 去做你想做的事情), 也可用 "localhost" (只是一個名稱，似別名，也可以叫brad) => 釣魚程式，把別名換掉 => 127.0.0.1 = localhost
+					"jdbc:mysql://localhost:3307/iii", prop)){
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 			
 				File file = new File("dir1/ball.png");
 				
-				if(file.length() <= 60*1000 ) {
-					pstmt.setBlob(1, new FileInputStream(file));  // 這裡也可以用setBinary, 老師為了示範多種應用
-					pstmt.setInt(2, 16);
+				if(file.length() <= 60*1000 ) {  // Blob 最大大概 64k => 64*1000
+					pstmt.setBlob(1, new FileInputStream(file));  // 第1個?, 這裡也可以用setBinary, 老師為了示範多種應用所以使用setBlob
+					pstmt.setInt(2, 16);  // 第2個?
 					int n = pstmt.executeUpdate();  // 在乎 所影響的列數
 					
 					if (n > 0) {

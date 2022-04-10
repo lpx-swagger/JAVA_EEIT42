@@ -12,12 +12,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-// TODO
 public class chloe99 extends JFrame {
 	private JTable table;
 	private MyModel myModel;
 	private String[] header = {"編號","名稱","地址","電話"};
-	
 	
 	public chloe99() {
 		setLayout(new BorderLayout());
@@ -40,7 +38,6 @@ public class chloe99 extends JFrame {
 			getDBData();
 		}
 		
-		
 		// connection 沒有打算關閉，要一直保持連線
 		private void getDBData() {
 			Properties prop = new Properties();
@@ -49,7 +46,7 @@ public class chloe99 extends JFrame {
 			String sql = "SELECT * FROM foods";
 			try {
 				Connection conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost/iii", prop);
+					"jdbc:mysql://localhost:3307/iii", prop);
 				PreparedStatement ps = conn.prepareStatement(
 						sql,
 						ResultSet.TYPE_SCROLL_INSENSITIVE,
@@ -59,14 +56,11 @@ public class chloe99 extends JFrame {
 				rs.last();
 				rowCount = rs.getRow();
 				
-				
 			}catch(Exception e) {
 				System.out.println(e.toString());
 			}
-			
 		}
 			
-		
 		@Override
 		public int getColumnCount() {
 			return 4;
@@ -95,7 +89,6 @@ public class chloe99 extends JFrame {
 				ret = "XXX";
 			}
 			return ret;
-			
 		}
 		
 		@Override
@@ -107,5 +100,4 @@ public class chloe99 extends JFrame {
 	public static void main(String[] args) {
 		new chloe99();
 	}
-
 }

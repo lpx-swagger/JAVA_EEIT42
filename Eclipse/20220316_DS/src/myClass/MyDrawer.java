@@ -36,6 +36,7 @@ public class MyDrawer extends JPanel{  // MyDrawer 的物件實體 is-a JPanel
 		addMouseMotionListener(mylistener);
 		
 		lines = new LinkedList<>(); // 初始化，平常用不到，需要用再拿出來
+		lines.size();
 		recycleBin = new LinkedList<>();
 		
 		defaultColor = Color.BLACK;

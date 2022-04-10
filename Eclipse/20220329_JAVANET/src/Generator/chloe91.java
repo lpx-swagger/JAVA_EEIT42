@@ -7,6 +7,7 @@ public class chloe91 {
 		String pass = "123456";
 		String hashPass = BCrypt.hashpw(pass, BCrypt.gensalt());
 		System.out.println(hashPass);
+		System.out.println(hashPass.length());
 		
 		if(BCrypt.checkpw("1234567", hashPass)) {
 			System.out.println("OK");

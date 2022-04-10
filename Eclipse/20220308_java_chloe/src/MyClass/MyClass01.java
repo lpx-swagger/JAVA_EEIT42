@@ -8,6 +8,8 @@ public class MyClass01 {
 	// 永遠「無」傳回值的宣告，可以是 public, private, protected
 	public MyClass01() {  // 一定要跟類別名稱一樣
 		System.out.println("MyClass01()");
+		var1 = 123;
+		name = "Brad";
 	}
 	
 	public MyClass01(int a) {  // 相同 Constructor 但可放不同參數

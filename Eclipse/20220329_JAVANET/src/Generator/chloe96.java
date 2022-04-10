@@ -14,7 +14,7 @@ public class chloe96 {
 		prop.put("user", "root");prop.put("password", "root");
 		
 		try(Connection conn = DriverManager.getConnection(
-				"jdbc:mysql://localhost:3306/iii", prop)) {
+				"jdbc:mysql://localhost:3307/iii", prop)) {
 			String sql1 = "UPDATE member SET money = money - ? WHERE id = ?";
 			String sql2 = "UPDATE member SET money = money + ? WHERE id = ?";
 		
@@ -36,7 +36,7 @@ public class chloe96 {
 			int n2 = pstmt2.executeUpdate();
 
 			// 我剛剛沒有commit 的在符合這裡的規定才做
-			if(n1 > 0 && n2 >0) {
+			if(n1 > 0 && n2 > 0) {
 				conn.commit();
 				System.out.println("Finish");
 			} else {

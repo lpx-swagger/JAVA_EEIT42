@@ -116,70 +116,6 @@ public class MyPanel extends JPanel implements ActionListener {
 		
 	}
 	
-	
-//	//int x; int y;
-    public void start(){
-//        JFrame frame = new JFrame();
-//
-//        frame.add(panel);
-//        frame.setSize(640, 480);
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.setVisible(true);
-//
-//        KeyStroke us = KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0, false);
-//        KeyStroke ds = KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0, false);
-//        KeyStroke ls = KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0, false);
-//        KeyStroke rs = KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0, false);
-//
-//        panel.getInputMap().put(us, "UP");
-//        panel.getInputMap().put(ds, "DOWN");
-//        panel.getInputMap().put(ls, "LEFT");
-//        panel.getInputMap().put(rs, "RIGHT");
-//
-//
-//        panel.getActionMap().put("UP", new AbstractAction(){
-//            @Override
-//            public void actionPerformed(ActionEvent evt){
-//                Up();
-//            }
-//        });
-//
-//        panel.getActionMap().put("DOWN", new AbstractAction(){
-//            @Override
-//            public void actionPerformed(ActionEvent evt){
-//                Down();
-//            }
-//        });
-//        panel.getActionMap().put("LEFT", new AbstractAction(){
-//            @Override
-//            public void actionPerformed(ActionEvent evt){
-//                Left();
-//            }
-//        });
-//        panel.getActionMap().put("RIGHT", new AbstractAction(){
-//            @Override
-//            public void actionPerformed(ActionEvent evt){
-//                Right();
-//            }
-//        });
-//    }
-//    
-//    private void Up() {
-//    	y[0] -= DOT_SIZE;
-//	}
-//	
-//	private void Down() {
-//		y[0] += DOT_SIZE;
-//	}
-//	
-//	private void Right() {
-//		x[0] += DOT_SIZE;
-//	} 
-//	
-//	private void Left() {
-//		x[0] -= DOT_SIZE;
-	}
-
 	private void gameOver(Graphics g) {
 		String msg = "Game Over!!!";
 		Font ft = new Font("", Font.ITALIC, 12);
@@ -264,7 +200,7 @@ public class MyPanel extends JPanel implements ActionListener {
 	}
 		
 //	// update score
-	private void updatescore(){
+	private void updateScore(){
 //        try {            
 //           Connection c=ClassDB.getkoneksi();
 //          Statement s=(Statement)c.createStatement();
@@ -313,7 +249,7 @@ public class MyPanel extends JPanel implements ActionListener {
 				upDir = false;
 				downDir = false;
 				System.out.println("Modifiers: " + e.getModifiersEx());
-				System.out.println("go left");
+				System.out.println("head go left");
 
 			}
 
@@ -322,7 +258,7 @@ public class MyPanel extends JPanel implements ActionListener {
 				leftDir = false;
 				rightDir = false;
 				System.out.println("Modifiers: " + e.getModifiersEx());
-				System.out.println("go up");
+				System.out.println("head go up");
 			}
 
 			if((key == KeyEvent.VK_DOWN) && (!upDir)) {
@@ -330,7 +266,7 @@ public class MyPanel extends JPanel implements ActionListener {
 				leftDir = false;
 				rightDir = false;
 				System.out.println("Modifiers: " + e.getModifiersEx());
-				System.out.println("go down");
+				System.out.println("head go down");
 			}
 
 			if((key == KeyEvent.VK_RIGHT) && (!leftDir)) {
@@ -338,7 +274,7 @@ public class MyPanel extends JPanel implements ActionListener {
 				upDir = false;
 				downDir = false;
 				System.out.println("Modifiers: " + e.getModifiersEx());
-				System.out.println("go right");
+				System.out.println("head go right");
 			}
 		}
 

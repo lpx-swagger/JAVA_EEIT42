@@ -19,7 +19,7 @@ public class chloe951 {
 		String sql = "SELECT * FROM member WHERE id = ?";
 		
 		try(Connection conn = DriverManager.getConnection(
-			"jdbc:mysql://localhost:3306/iii", prop)) {
+			"jdbc:mysql://localhost:3307/iii", prop)) {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, 16);
 			ResultSet rs = pstmt.executeQuery();

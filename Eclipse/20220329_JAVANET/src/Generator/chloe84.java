@@ -17,7 +17,7 @@ public class chloe84 {
 			URL url = new URL("https://data.coa.gov.tw/Service/OpenData/ODwsv/ODwsvTravelFood.aspx");
 			HttpURLConnection conn = (HttpURLConnection)url.openConnection();  // 在Google 輸入URL之後，按下Enter => openConnection()
 			
-			BufferedReader reader = 
+			BufferedReader reader =  // 網頁原始碼 永遠都是文字檔 => 使用 BufferedReader
 				new BufferedReader(
 					new InputStreamReader(conn.getInputStream()));  // openConnection()後 => 取得物件實體URLConnection => URLconnection abstract 就 abstract 方法(getInputStream() => 倒資料進來)能夠滿足我用就好了
 			String line; StringBuffer sb = new StringBuffer();
@@ -25,10 +25,10 @@ public class chloe84 {
 				sb.append(line);
 			}
 			reader.close();
+			
 			conn.disconnect();
 			
 			parseJSON(sb.toString());
-			
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -37,7 +37,7 @@ public class chloe84 {
 	private static void parseJSON(String json) {
 		try {
 			JSONArray root = new JSONArray(json);
-			for (int i=0; i<root.length(); i++) {
+			for (int i = 0; i < root.length(); i++) {
 				JSONObject row = root.getJSONObject(i);
 				String country = row.getString("City");
 				String town = row.getString("Town");

@@ -11,7 +11,7 @@ import java.net.Socket;
 public class chloe83 {
 	public static void main(String[] args) {
 		try {
-			File source = new File("dir1/coffee1.jpg");
+			File source = new File("dir1/coffee1.jpg");  // 檔案一次來很多， 用 File 寫比較快
 			byte[] buf = new byte[(int)source.length()];
 			FileInputStream fin = new FileInputStream(source);
 			fin.read(buf);

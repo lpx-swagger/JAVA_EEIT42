@@ -18,12 +18,15 @@ public class StudentV3 implements Serializable{
 		this.math = math;
 		bike = new BikeV2();
 	}
+	
 	public BikeV2 getBike() {
 		return bike;
 	}
+	
 	public int score() {
 		return ch + eng + math;
 	}
+	
 	public double avg() {
 		return score() / 3.0;
 	}
@@ -32,5 +35,4 @@ public class StudentV3 implements Serializable{
 	public String toString() {
 		return name;
 	}
-	
 }

@@ -21,7 +21,7 @@ public class chloe95 {
 	public static void main(String[] args) {
 		StudentV3 s1 = new StudentV3("chloe", 70, 43, 56);
 		BikeV2 b1 = s1.getBike(); b1.upSpeed(); b1.upSpeed(); b1.upSpeed();
-		System.out.println(s1+":"+s1.score() + ":" + s1.avg() + ":" + s1.getBike().getSpeed());
+		System.out.println(s1 + ":" + s1.score() + ":" + s1.avg() + ":" + s1.getBike().getSpeed());
 		
 		// 上傳到資料庫
 		Properties prop = new Properties();
@@ -31,11 +31,10 @@ public class chloe95 {
 		String sql = "UPDATE member SET student = ? WHERE id = ?";
 			
 		try(Connection conn = DriverManager.getConnection(
-			"jdbc:mysql://localhost:3306/iii", prop)) {
+			"jdbc:mysql://localhost:3307/iii", prop)) {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			// a.
 			pstmt.setInt(2, 16);
-
 
 			// b.
 			// 先把資料丟在memory
@@ -51,7 +50,6 @@ public class chloe95 {
 
 			pstmt.setBinaryStream(1, new ByteArrayInputStream(s1Ary));
 
-
 			int n = pstmt.executeUpdate();
 			if(n > 0) {
 				System.out.println("Update Success");
@@ -62,5 +60,4 @@ public class chloe95 {
 			System.out.println(e.toString());
 		}
 	}
-
 }

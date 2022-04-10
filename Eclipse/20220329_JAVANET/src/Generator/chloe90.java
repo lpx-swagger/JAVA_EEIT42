@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+// executeQuery() => ResultSet
+
 public class chloe90 {
 
 	public static void main(String[] args) {
@@ -17,14 +19,14 @@ public class chloe90 {
 			prop.put("user", "root");
 			prop.put("password", "root");
 			Connection conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost/iii", prop);
+					"jdbc:mysql://localhost:3307/iii", prop);
 			
 			PreparedStatement pstmt = conn.prepareStatement(
 					"SELECT * FROM foods");
 			
 			// 4. execute SQL statement
 			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
+			while (rs.next()) {  // 骨子裏都是字串 String
 				String id = rs.getString("id");
 				String name = rs.getString("name");
 				String addr = rs.getString("addr");

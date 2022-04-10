@@ -1,6 +1,6 @@
 package Generator;
 
-// TODO
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.JDBCType;
@@ -22,12 +22,12 @@ public class chloe93 {
 			prop.put("user", "root");
 			prop.put("password", "root");
 			Connection conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost/iii", prop);
+					"jdbc:mysql://localhost:3307/iii", prop);
 			
 			String account = "peter";
 			String passwd = "123456";
 			PreparedStatement pstmt = conn.prepareStatement(
-					"SELECT account,passwd FROM member WHERE account = ?");
+					"SELECT account, passwd FROM member WHERE account = ?");
 			pstmt.setString(1, account);
 			
 			// 4. execute SQL statement
@@ -36,7 +36,7 @@ public class chloe93 {
 				String hashPasswd = rs.getString("passwd");
 				if (BCrypt.checkpw(passwd, hashPasswd)) {
 					// OK
-					System.out.println("OK");
+					System.out.println("OK1");
 				}else {
 					// error
 					System.out.println("error1");
@@ -47,7 +47,7 @@ public class chloe93 {
 			}
 			
 			conn.close();
-			System.out.println("OK");
+			System.out.println("OK2");
 		} catch (SQLException e) {
 			System.out.println(e.toString());
 		}

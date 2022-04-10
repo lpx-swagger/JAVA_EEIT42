@@ -27,4 +27,17 @@ public class MyCalcV1 {
 		}
 	}
 	
+	public int multiple() {
+		return a * b;
+	}
+	public int div() {
+		return a / b;
+	}
+	public int getA() {
+		return a;
+	}
+	public int getB() {
+		return b;
+	}
+	
 }

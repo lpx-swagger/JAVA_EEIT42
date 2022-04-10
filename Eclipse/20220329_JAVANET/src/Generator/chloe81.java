@@ -11,6 +11,7 @@ import java.net.Socket;
 // 自己的電腦有開哪些 port number
 
 
+
 public class chloe81 {
 	public static void main(String[] args) {
 		try {
@@ -19,7 +20,7 @@ public class chloe81 {
 			
 			BufferedOutputStream bout = new BufferedOutputStream(
 					socket.getOutputStream());
-			bout.write("Hello, Brad".getBytes());
+			bout.write("Hello, Chloe".getBytes());
 			bout.close();
 			
 			socket.close();

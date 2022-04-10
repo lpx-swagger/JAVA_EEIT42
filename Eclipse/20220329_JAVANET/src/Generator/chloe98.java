@@ -8,7 +8,9 @@ import java.util.Properties;
 
 import myClass.BCrypt;
 
-// 伺服器 進階(自修)
+// Properties vs. hashMap
+
+// 鳥哥私房菜 伺服器 進階(自修)
 	// 差異式備份
 	// 權限 => 庫，表，欄位
 
@@ -23,27 +25,26 @@ public class chloe98 {
 			
 			PreparedStatement pstmt = conn.prepareStatement(
 					sql,
-					ResultSet.TYPE_FORWARD_ONLY,  // 效能較好 
+					ResultSet.TYPE_FORWARD_ONLY,  // 指標移動相關，效能較好 
 					ResultSet.CONCUR_UPDATABLE
 					);
 		
 			ResultSet rs = pstmt.executeQuery();
 			
-			rs.next();  // 指向目前的第一筆資料
+			rs.next();  // 通常指向目前的第一筆資料 brad
 			System.out.println(rs.getString("account"));
 			
-			rs.updateString("account", "newbrad2");
-			rs.updateString("realname", "brad2");
-			rs.updateRow();  // TODO 剛剛只是在記憶題做，這行再整個做出來 ??
+			rs.updateString("account", "newbrad2");  // 只是在記憶體裡面做
+			rs.updateString("realname", "brad2");  // 只是在記憶體裡面做
+			rs.updateRow();  // 這行再整個做出來
 			System.out.println(rs.getString("account"));
 
-
-			// 再繼續往下增加
+			// 再繼續往下增加筆數
 			rs.next();
 			System.out.println(rs.getString("account"));
 			rs.deleteRow();
 			
-			// before first  // TODO 再砍下一筆?
+			// 查詢指標目前到哪了
 			System.out.println(rs.getString("account"));
 
 			rs.moveToInsertRow();  // 指標先指到準備要move的row
@@ -53,6 +54,7 @@ public class chloe98 {
 				BCrypt.hashpw("123456", BCrypt.gensalt()));
 			rs.insertRow();
 			
+			// 查詢指標目前到哪了
 			System.out.println(rs.getString("account"));
 			
 			
