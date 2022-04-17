@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import execute.MainChloe;
+import Generator.MainChloe;
 
 
 public class LuckyDraw extends JFrame {

@@ -7,17 +7,27 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Properties;
+import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import Generator.myMotion;
 
+
+import Generator.myMotion;
 
 public class MyPanel extends JPanel implements ActionListener {
     private final int RAND_POS = 11;
@@ -30,26 +40,81 @@ public class MyPanel extends JPanel implements ActionListener {
     private int x[] = new int[TOTAL_DOTS];
     private int y[] = new int[TOTAL_DOTS];
     
-    private int dots; private int eX; private int eY;
+    private int dots; private int eX; private int eY; private int score;
+    private int id;
     
 	private boolean leftDir = false; private boolean rightDir = true;
 	private boolean upDir = false; private boolean downDir = false;
 	private boolean inGame = true;
 
-	private int score;
-	
 	private Image elephant; private Image head; private Image unitBody;
 
 	private Timer timer;
 	
-	public MyPanel() {
+	public MyPanel(){
 		setBackground(Color.BLACK);
 		setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
 		
-		score = 0;
-		
 		timer = new Timer(DELAY, this);
-		timer.start();
+		this.id =0;
+	}
+	
+	private int sqlQuery() {
+		Properties prop = new Properties();
+		prop.put("user", "root");
+		prop.put("password", "root");
+		
+		String sql = "SELECT COUNT(*) AS count FROM SnakeGame";
+		
+		try {
+			Connection conn = DriverManager.getConnection(
+					"jdbc:mysql://localhost:3307/iii", prop);
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt("count");
+				System.out.println(id);
+				return id;
+			}
+			conn.close();
+			
+			return 0;
+			//System.out.println("Max: " + id);
+			
+		} catch(Exception e) {
+			System.out.println(e.toString());
+			//JOptionPane.showMessageDialog(null, e.getMessage());
+			return 0;
+		}
+	}
+	
+	private void sqlUpdate()  {
+		Properties prop = new Properties();
+		prop.put("user", "root");
+		prop.put("password", "root");
+		
+		String sqll = "UPDATE SnakeGame SET score = ? WHERE id = ?";
+		
+		try {
+			Connection conn = DriverManager.getConnection(
+					"jdbc:mysql://localhost:3307/iii", prop);
+			PreparedStatement pstmt = conn.prepareStatement(sqll);
+			
+			pstmt.setInt(1, getScore());
+			pstmt.setInt(2, this.id);
+            
+			int n = pstmt.executeUpdate();
+			if(n > 0) {
+            	JOptionPane.showMessageDialog(null, "Updated Score!");
+            } else {
+            	JOptionPane.showMessageDialog(null, "Failed!");
+            }
+			
+			conn.close();	
+		} catch(Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
 	}
 	
 	public void newGame() {
@@ -57,13 +122,17 @@ public class MyPanel extends JPanel implements ActionListener {
 		setFocusable(true);
 		requestFocus();
 		
+		this.id = sqlQuery();
+		System.out.println(this.id);
+		
 		/* If you're just listening for a few keys and your component doing the listening 
 		 * may not have the focus, you're far better of using key bindings than a KeyListener.*/
 		
-		
 		loadObj();
-		initGame();
 		setInGame();
+		initGame();
+		timer.start();
+		
 	}
 	
 	private void loadObj() {
@@ -77,27 +146,34 @@ public class MyPanel extends JPanel implements ActionListener {
 	}
 	
 	private void initGame() {
-		dots = 3;
-		for(int i = 0; i < dots; i++) {
+		dots = 3;  // 1head + 2unitbody
+		score = 0;
+		for(int i = 0; i < dots; i++) {  // default Snake location
 			x[i] = 350 - i * 10;
 			y[i] = 350;
 		}
 		locElephant();
 	}
 	
+	private void locElephant() {
+		int ran1 = (int)(Math.random() * RAND_POS);
+		int ran2 = (int)(Math.random() * RAND_POS);
+		eX = (ran1 * DOT_SIZE);
+		eY = (ran2 * DOT_SIZE);
+		System.out.println("Elephant location: " + "X: " + eX + " " + "Y: " + eY);
+	}
+	
 	public void setInGame() {
 		this.inGame = true;
 	}
 	
-	
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		//System.out.println(viewW + " " +viewW);
-		
 		Graphics2D g2d = (Graphics2D) g;
 		
 		if(inGame) {
+//			System.out.println("aaa");
 			g2d.drawImage(elephant, eX, eY, this);
 			
 			for(int i = 0; i < dots; i++) {
@@ -107,13 +183,17 @@ public class MyPanel extends JPanel implements ActionListener {
 					g2d.drawImage(unitBody, x[i], y[i], this);
 				}
 			}
-//			timer = new Timer(250, e -> update(g2d));
-//			timer.start();
-			
-		} else {
+			Toolkit.getDefaultToolkit().sync();
+		}
+		else {
+//			System.out.println("bbb");
 			gameOver(g2d);
 		}
-		
+	}
+	
+	
+	public int getScore() {
+		return dots-3;
 	}
 	
 	private void gameOver(Graphics g) {
@@ -126,17 +206,11 @@ public class MyPanel extends JPanel implements ActionListener {
 		g2d.setColor(Color.WHITE);
 		g2d.setFont(ft);
 		g2d.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2 );
-	}
-
-	
-	
-
-	private void locElephant() {
-		int ran1 = (int)(Math.random() * RAND_POS);
-		int ran2 = (int)(Math.random() * RAND_POS);
-		eX = (ran1 * DOT_SIZE);
-		eY = (ran2 * DOT_SIZE);
-		System.out.println("Elephant location: " + "X: " + eX + " " + "Y: " + eY);
+		g2d.drawString("Score: " + getScore(), B_WIDTH/3, B_HEIGHT/3);
+		
+		timer.stop();
+		System.out.println(this.id + " " + getScore());
+		sqlUpdate();
 	}
 	
 	private void checkElephant() {
@@ -167,8 +241,6 @@ public class MyPanel extends JPanel implements ActionListener {
 		if(downDir) {
 			y[0] += DOT_SIZE;
 		}
-		
-		
 	}
 
 	private void checkCollision() {
@@ -195,46 +267,20 @@ public class MyPanel extends JPanel implements ActionListener {
 		if(y[0] < 0) {
 			inGame = false;
 		}
-		
-	
 	}
 		
-//	// update score
-	private void updateScore(){
-//        try {            
-//           Connection c=ClassDB.getkoneksi();
-//          Statement s=(Statement)c.createStatement();
-//       String cektinggi="Select * from score where nama = '" + Nama.toString() +"'";
-//           ResultSet r=s.executeQuery(cektinggi);
-//           if (r.next()){
-//            scoretinggi = Integer.parseInt(r.getString("score"));
-//            if (scorenya &lt;= scoretinggi){
-//                 return;  
-//            }
-//            else{
-//                 String sqel = "UPDATE score Set score ='" + scorenya +"' where nama = '" + Nama.toString()+ "'";     
-//           s.executeUpdate(sqel); 
-//            }
-//                     
-//           }            
-//       }catch(Exception e) {
-//           System.out.println(e);
-//       }
-   }
-	
-
-	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(inGame) {
 			checkElephant();
 			checkCollision();
 			move();
-		}
+		}			
 		repaint();
 	}
 
 	private class KAdapter extends KeyAdapter {
+		
 		@Override
 		public void keyTyped(KeyEvent e) {
 
@@ -285,3 +331,5 @@ public class MyPanel extends JPanel implements ActionListener {
 	}
 
 }
+
+

@@ -21,7 +21,7 @@ public class myEditor extends JFrame {
 	private JTextArea textArea;
 	private File openFile;
 	public myEditor() {
-		super("PEI-XUAN's Editor");
+		super("Text Editor");
 		openBtn = new JButton("Open");
 		saveBtn = new JButton("Save");
 		saveAsBtn = new JButton("Save as");
